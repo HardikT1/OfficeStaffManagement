@@ -4,13 +4,16 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+You need to have flutter installed to be able to build the application. You can download it from here: https://flutter.dev/docs/get-started/install
 
-A few resources to get you started if this is your first Flutter project:
+Then you need to install dependencies with the following command:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- flutter pub get
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+At last, you need to generate hive models with the following command:
+
+- flutter pub run build_runner build
+
+You will also need an emulator to be able to run the application. You can create a new VM using the AVD Manager inside the IDE
+
+Once the VM is running, you just need to hit the run/debug button, selecting main.dart as the entry point
