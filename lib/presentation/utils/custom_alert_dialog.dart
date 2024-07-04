@@ -30,16 +30,15 @@ void showCustomDialog(BuildContext context, Widget upperButton, Widget lowerButt
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 12.0),
-                      child: !isOffice
-                          ? InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: SvgPicture.asset(BaseAssets.backArrowIcon),
-                            )
-                          : const SizedBox(),
-                    ),
+                        padding: const EdgeInsets.only(right: 12.0),
+                        child: !isOffice
+                            ? InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: SvgPicture.asset(BaseAssets.backArrowIcon),
+                              )
+                            : const SizedBox()),
                     isTitle
                         ? const Expanded(
                             child: Text(
@@ -52,7 +51,7 @@ void showCustomDialog(BuildContext context, Widget upperButton, Widget lowerButt
                                 fontWeight: FontWeight.w700),
                             maxLines: 20,
                           ))
-                        : const SizedBox(),
+                        : const SizedBox()
                   ],
                 ),
                 upperButton,
@@ -76,10 +75,7 @@ void showCustomDialog(BuildContext context, Widget upperButton, Widget lowerButt
       }
       return SlideTransition(
         position: tween.animate(anim),
-        child: FadeTransition(
-          opacity: anim,
-          child: child,
-        ),
+        child: FadeTransition(opacity: anim, child: child),
       );
     },
   );

@@ -8,34 +8,29 @@ class Office extends HiveObject {
   final String? id;
 
   @HiveField(1)
-  final String? companyName;
-
+  final String? officeName;
   @HiveField(2)
-  int? noOfEmployee;
-
+  int? noOfStaff;
   @HiveField(3)
-  final String? companyNumber;
-
+  final String? officeNumber;
   @HiveField(4)
-  final String? companyEmail;
-
+  final String? officeEmail;
   @HiveField(5)
-  final int? companyCapacity;
-
+  final int? officeCapacity;
   @HiveField(6)
-  final String? companyAddress;
+  final String? officeAddress;
 
   @HiveField(7)
-  final int? companyCardColor;
+  int? officeCardColor;
 
   Office({
     required this.id,
-    required this.companyName,
-    required this.noOfEmployee,
-    required this.companyNumber,
-    required this.companyEmail,
-    required this.companyCapacity,
-    required this.companyAddress,
-    required this.companyCardColor,
+    required this.officeName,
+    required this.noOfStaff,
+    required this.officeNumber,
+    required this.officeEmail,
+    required this.officeCapacity,
+    required this.officeAddress,
+    required this.officeCardColor,
   });
 }

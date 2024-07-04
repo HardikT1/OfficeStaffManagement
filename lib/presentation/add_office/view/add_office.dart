@@ -42,13 +42,13 @@ class _AddOfficeScreenState extends State<AddOfficeScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if ((widget.officeDto?.companyName?.isNotEmpty ?? false) && widget.isEdit) {
-        officeNameController.text = widget.officeDto!.companyName!;
-        officePhysicalAddressController.text = widget.officeDto!.companyAddress!;
-        officeEmailController.text = widget.officeDto!.companyEmail!;
-        officePhoneController.text = widget.officeDto!.companyNumber!;
-        officeCapacityController.text = widget.officeDto!.companyCapacity!.toString();
-        selectedIndex = widget.officeDto?.companyCardColor;
+      if ((widget.officeDto?.officeName?.isNotEmpty ?? false) && widget.isEdit) {
+        officeNameController.text = widget.officeDto!.officeName!;
+        officePhysicalAddressController.text = widget.officeDto!.officeAddress!;
+        officeEmailController.text = widget.officeDto!.officeEmail!;
+        officePhoneController.text = widget.officeDto!.officeNumber!;
+        officeCapacityController.text = widget.officeDto!.officeCapacity!.toString();
+        selectedIndex = widget.officeDto?.officeCardColor;
       }
     });
     super.initState();
@@ -66,10 +66,10 @@ class _AddOfficeScreenState extends State<AddOfficeScreen> {
           create: (context) => PutOfficeBloc(GetIt.I<AppRepository>()),
         ),
       ],
-      child: BlocBuilder<AddOfficeBloc, AddOfficeState>(
+      child: BlocBuilder<AddOfficeBloc, AddStaffState>(
         builder: (ctx, chooseColorState) {
-          if (selectedIndex != widget.officeDto?.companyCardColor && widget.isEdit) {
-            chooseColorState.selectedIndex = widget.officeDto?.companyCardColor ?? 0;
+          if (selectedIndex != widget.officeDto?.officeCardColor && widget.isEdit) {
+            chooseColorState.selectedColorIndex = widget.officeDto?.officeCardColor ?? 0;
           }
           return Scaffold(
             appBar: AppBar(
@@ -196,9 +196,9 @@ class _AddOfficeScreenState extends State<AddOfficeScreen> {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height / 6,
                             child: generateColorPalette(ctx, chooseColorState,
-                                chooseColorState.selectedIndex, widget.isEdit)),
+                                chooseColorState.selectedColorIndex, widget.isEdit)),
                       ),
-                      BlocBuilder<PutOfficeBloc, PutOfficeState>(
+                      BlocBuilder<PutOfficeBloc, PutStaffState>(
                         builder: (context, state) {
                           return Padding(
                             padding: const EdgeInsets.only(top: 24),
@@ -228,34 +228,43 @@ class _AddOfficeScreenState extends State<AddOfficeScreen> {
                                 } else if (!formKey.currentState!.validate()) {
                                   showInSnackBar(BaseStrings.enterValidData, context);
                                 } else {
-                                  context.read<PutOfficeBloc>().add(PutOfficeEvent(Office(
-                                      id: widget.isEdit
-                                          ? widget.officeDto?.id ?? ""
-                                          : const Uuid().v4(),
-                                      companyName: officeNameController.text,
-                                      noOfEmployee: widget.isEdit ? 10 : 0,
-                                      companyNumber: officePhoneController.text,
-                                      companyEmail: officeEmailController.text,
-                                      companyCapacity:
-                                          int.parse(officeCapacityController.text),
-                                      companyAddress:
-                                          officePhysicalAddressController.text,
-                                      companyCardColor: chooseColorState.selectedIndex)));
+                                  context.read<PutOfficeBloc>().add(
+                                        PutOfficeEvent(
+                                          Office(
+                                            id: widget.isEdit
+                                                ? widget.officeDto?.id ?? ""
+                                                : const Uuid().v4(),
+                                            officeName: officeNameController.text,
+                                            noOfStaff: widget.isEdit ? 10 : 0,
+                                            officeNumber: officePhoneController.text,
+                                            officeEmail: officeEmailController.text,
+                                            officeCapacity:
+                                                int.parse(officeCapacityController.text),
+                                            officeAddress:
+                                                officePhysicalAddressController.text,
+                                            officeCardColor:
+                                                chooseColorState.selectedColorIndex,
+                                          ),
+                                        ),
+                                      );
                                   officeBloc.add(GetAllOffices());
                                   context.read<OfficeBloc>().add(GetAllOffices());
-                                  Navigator.of(context).pop(Office(
+                                  Navigator.of(context).pop(
+                                    Office(
                                       id: widget.isEdit
                                           ? widget.officeDto?.id ?? ""
                                           : const Uuid().v4(),
-                                      companyName: officeNameController.text,
-                                      noOfEmployee: widget.isEdit ? 10 : 0,
-                                      companyNumber: officePhoneController.text,
-                                      companyEmail: officeEmailController.text,
-                                      companyCapacity:
+                                      officeName: officeNameController.text,
+                                      noOfStaff: widget.isEdit ? 10 : 0,
+                                      officeNumber: officePhoneController.text,
+                                      officeEmail: officeEmailController.text,
+                                      officeCapacity:
                                           int.parse(officeCapacityController.text),
-                                      companyAddress:
-                                          officePhysicalAddressController.text,
-                                      companyCardColor: chooseColorState.selectedIndex));
+                                      officeAddress: officePhysicalAddressController.text,
+                                      officeCardColor:
+                                          chooseColorState.selectedColorIndex,
+                                    ),
+                                  );
                                 }
                               },
                             ),
@@ -286,7 +295,9 @@ class _AddOfficeScreenState extends State<AddOfficeScreen> {
                                       officeBloc.add(GetAllOffices());
                                       context.read<OfficeBloc>().add(GetAllOffices());
                                       if (widget.isEdit) Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      if (Navigator.canPop(context)) {
+                                        Navigator.pop(context);
+                                      }
                                     },
                                     textColor: BaseColors.whiteTextColor,
                                     backgroundColor: BaseColors.redColor,
@@ -324,9 +335,9 @@ class _AddOfficeScreenState extends State<AddOfficeScreen> {
   }
 
   Widget generateColorPalette(
-      BuildContext ctx, AddOfficeState state, int selectedIndex, bool isEdit) {
+      BuildContext ctx, AddStaffState state, int selectedIndex, bool isEdit) {
     return Center(
-      child: BlocBuilder<AddOfficeBloc, AddOfficeState>(
+      child: BlocBuilder<AddOfficeBloc, AddStaffState>(
         builder: (BuildContext contexts, state) {
           return Wrap(
             spacing: 10.0,
@@ -336,14 +347,14 @@ class _AddOfficeScreenState extends State<AddOfficeScreen> {
               colorPalette.length,
               (index) => GestureDetector(
                 onTap: () {
-                  contexts.read<AddOfficeBloc>().add(ColorChooseEvent(index, 0));
+                  contexts.read<AddOfficeBloc>().add(ChooserEvent(index, 0));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: state.selectedIndex == index
+                      color: state.selectedColorIndex == index
                           ? BaseColors.selectedBorderColor
                           : Colors.transparent,
                       width: 4,

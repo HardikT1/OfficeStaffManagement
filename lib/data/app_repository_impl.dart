@@ -20,8 +20,8 @@ class AppRepositoryImpl extends AppRepository {
   }
 
   @override
-  Future<void> deleteOffice(Office office) {
-    return office.delete();
+  void deleteOffice(Office office) {
+    _officeBox.delete(office.id);
   }
 
   final _staffBox = Hive.box<Staff>(BaseStrings.staffBox);
@@ -41,7 +41,7 @@ class AppRepositoryImpl extends AppRepository {
   }
 
   @override
-  Future<void> deleteStaff(Staff staff) {
-    return staff.delete();
+  void deleteStaff(Staff staff) {
+    _staffBox.delete(staff.id);
   }
 }

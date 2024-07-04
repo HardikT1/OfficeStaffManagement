@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:office_staff_management/presentation/add_office/bloc/state.dart';
+import 'package:office_staff_management/presentation/landing_screen/office_failure_widget.dart';
+import 'package:office_staff_management/presentation/office_details/bloc/bloc.dart';
+import 'package:office_staff_management/presentation/office_details/bloc/state.dart';
+import 'package:office_staff_management/presentation/office_details/office_details_screen.dart';
 import 'package:office_staff_management/presentation/utils/base_strings.dart';
 
+import '../add_office/view/add_office.dart';
 import '../utils/base_colors.dart';
 import '../utils/common_floating_action_button.dart';
 import '../utils/loading_widget.dart';
@@ -46,7 +51,7 @@ class LandingScreen extends StatelessWidget {
               if (state is OfficeLoading) {
                 return const LoadingWidget();
               } else if (state is OfficeFailure) {
-                return OfficeFailureWidget(message: BaseStrings.noOfficeAvailable);
+                return const OfficeFailureWidget(message: BaseStrings.noOfficeAvailable);
               }
               return (state is OfficeSuccess)
                   ? state.list.isNotEmpty

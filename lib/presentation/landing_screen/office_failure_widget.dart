@@ -5,6 +5,7 @@ import '../utils/base_strings.dart';
 
 class OfficeFailureWidget extends StatelessWidget {
   final String? message;
+
   const OfficeFailureWidget({super.key, required this.message});
 
   @override

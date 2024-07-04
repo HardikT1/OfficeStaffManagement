@@ -8,14 +8,14 @@ abstract class AddOfficeEvent extends Equatable {
 
 class InitEvent extends AddOfficeEvent {}
 
-class ColorChooseEvent extends AddOfficeEvent {
-  final int newIndex;
+class ChooserEvent extends AddOfficeEvent {
+  final int newColorIndex;
   final int newAvtarIndex;
 
-  ColorChooseEvent(this.newIndex, this.newAvtarIndex);
+  ChooserEvent(this.newColorIndex, this.newAvtarIndex);
 
   @override
-  List<Object> get props => [newIndex, newAvtarIndex];
+  List<Object> get props => [newColorIndex, newAvtarIndex];
 }
 
 class PutOfficeEvent extends AddOfficeEvent {

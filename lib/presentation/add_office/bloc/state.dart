@@ -7,48 +7,51 @@ abstract class StaffState extends Equatable {
   List<Object> get props => [];
 }
 
-class AddOfficeState extends StaffState {
-  int selectedIndex;
+class AddStaffState extends StaffState {
+  int selectedColorIndex;
   int avtarIndex;
 
-  AddOfficeState(this.selectedIndex, this.avtarIndex);
+  AddStaffState(this.selectedColorIndex, this.avtarIndex);
 
   @override
-  List<Object> get props => [selectedIndex];
+  List<Object> get props => [selectedColorIndex];
 
-  AddOfficeState copyWith(
-      {required final int selectedIndex, required final int avtarIndex}) {
-    return AddOfficeState(selectedIndex, avtarIndex);
+  AddStaffState copyWith({
+    required final int selectedIndex,
+    required final int avtarIndex,
+  }) {
+    return AddStaffState(selectedIndex, avtarIndex);
   }
 
-  factory AddOfficeState.initial() {
-    return AddOfficeState(0, -1);
+  factory AddStaffState.initial() {
+    return AddStaffState(0, -1);
   }
 }
 
-class PutOfficeState extends StaffState {
-  final Office selectedIndex;
+class PutStaffState extends StaffState {
+  final Office officeDto;
 
-  PutOfficeState(this.selectedIndex);
+  PutStaffState(this.officeDto);
 
   @override
-  List<Object> get props => [selectedIndex];
+  List<Object> get props => [officeDto];
 
-  PutOfficeState copyWith({required final Office selectedIndex}) {
-    return PutOfficeState(
-      selectedIndex,
-    );
+  PutStaffState copyWith({required final Office officeDto}) {
+    return PutStaffState(officeDto);
   }
 
-  factory PutOfficeState.initial() {
-    return PutOfficeState(Office(
+  factory PutStaffState.initial() {
+    return PutStaffState(
+      Office(
         id: const Uuid().v4(),
-        companyName: "companyName",
-        noOfEmployee: 0,
-        companyNumber: "companyNumber",
-        companyEmail: "companyEmail",
-        companyCapacity: 0,
-        companyAddress: "companyAddress",
-        companyCardColor: 1));
+        officeName: "",
+        noOfStaff: 0,
+        officeNumber: "",
+        officeEmail: "",
+        officeCapacity: 0,
+        officeAddress: "",
+        officeCardColor: 0,
+      ),
+    );
   }
 }

@@ -58,12 +58,12 @@ class _CustomOfficeCardState extends State<CustomOfficeCard> {
         ),
         gradient: LinearGradient(
           colors: [
-            colorPalette[widget.officeDto?.companyCardColor ?? 0],
-            colorPalette[widget.officeDto?.companyCardColor ?? 0],
-            colorPalette[widget.officeDto?.companyCardColor ?? 0].withOpacity(0.8),
-            colorPalette[widget.officeDto?.companyCardColor ?? 0].withOpacity(0.8),
-            colorPalette[widget.officeDto?.companyCardColor ?? 0].withOpacity(0.5),
-            colorPalette[widget.officeDto?.companyCardColor ?? 0].withOpacity(0.5),
+            colorPalette[widget.officeDto?.officeCardColor ?? 0],
+            colorPalette[widget.officeDto?.officeCardColor ?? 0],
+            colorPalette[widget.officeDto?.officeCardColor ?? 0].withOpacity(0.8),
+            colorPalette[widget.officeDto?.officeCardColor ?? 0].withOpacity(0.8),
+            colorPalette[widget.officeDto?.officeCardColor ?? 0].withOpacity(0.5),
+            colorPalette[widget.officeDto?.officeCardColor ?? 0].withOpacity(0.5),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -81,8 +81,8 @@ class _CustomOfficeCardState extends State<CustomOfficeCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildCompanyNameSection(),
-            _buildEmployeeSection(),
+            _buildOfficeNameSection(),
+            _buildStaffSection(),
             const Divider(color: BaseColors.iconColor),
             GestureDetector(
                 onTap: () {
@@ -97,16 +97,16 @@ class _CustomOfficeCardState extends State<CustomOfficeCard> {
     );
   }
 
-  Widget _buildCompanyNameSection() {
+  Widget _buildOfficeNameSection() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          widget.officeDto?.companyName ?? "",
+          widget.officeDto?.officeName ?? "",
           style: const TextStyle(
-            fontFamily: BaseStrings.interSemiBoldFontFamily,
+            fontFamily: BaseStrings.interFontFamily,
             fontSize: 24,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w600,
             color: BaseColors.textColor,
           ),
         ),
@@ -118,7 +118,7 @@ class _CustomOfficeCardState extends State<CustomOfficeCard> {
     );
   }
 
-  Widget _buildEmployeeSection() {
+  Widget _buildStaffSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -131,7 +131,7 @@ class _CustomOfficeCardState extends State<CustomOfficeCard> {
           ),
           RichText(
             text: TextSpan(
-              text: "${widget.officeDto?.noOfEmployee}",
+              text: "${widget.officeDto?.noOfStaff}",
               style: const TextStyle(
                 fontFamily: BaseStrings.interFontFamily,
                 fontSize: 12,
@@ -191,13 +191,13 @@ class _CustomOfficeCardState extends State<CustomOfficeCard> {
               child: Column(
                 children: [
                   _buildInfoRow(
-                      BaseAssets.phoneIconSvg, widget.officeDto?.companyNumber ?? ""),
+                      BaseAssets.phoneIconSvg, "+1 ${widget.officeDto?.officeNumber}"),
                   _buildInfoRow(
-                      BaseAssets.emailIconSvg, widget.officeDto?.companyEmail ?? ""),
+                      BaseAssets.emailIconSvg, widget.officeDto?.officeEmail ?? ""),
                   _buildInfoRow(BaseAssets.peopleIconSvg,
-                      "Office Capacity: ${widget.officeDto?.companyCapacity}"),
+                      "${BaseStrings.officeCapacity} ${widget.officeDto?.officeCapacity}"),
                   _buildInfoRow(
-                      BaseAssets.locationIconSvg, widget.officeDto?.companyAddress ?? ""),
+                      BaseAssets.locationIconSvg, widget.officeDto?.officeAddress ?? ""),
                 ],
               ),
             ),
@@ -220,9 +220,8 @@ class _CustomOfficeCardState extends State<CustomOfficeCard> {
             child: Text(
               text,
               style: const TextStyle(
-                fontFamily: BaseStrings.interSemiBoldFontFamily,
+                fontFamily: BaseStrings.interFontFamily,
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
                 color: BaseColors.textColor,
               ),
             ),

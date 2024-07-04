@@ -25,6 +25,6 @@ class BaseAssets {
     avatar4Icon,
     avatar5Icon,
     avatar6Icon,
-    avatar7Icon,
+    avatar7Icon
   ];
 }

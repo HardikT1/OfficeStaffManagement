@@ -6,11 +6,11 @@ abstract class AppRepository {
 
   void putOffice(Office office);
 
-  Future<void> deleteOffice(Office office);
+  void deleteOffice(Office office);
 
   List<Staff> getStaffList();
 
   void addStaff(Staff staff);
 
-  Future<void> deleteStaff(Staff staff);
+  void deleteStaff(Staff staff);
 }

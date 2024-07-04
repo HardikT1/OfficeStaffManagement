@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:office_staff_management/data/dto/staff.dart';
-import 'package:office_staff_management/presentation/add_office/bloc/bloc.dart';
-import 'package:office_staff_management/presentation/add_office/bloc/event.dart';
-import 'package:office_staff_management/presentation/add_office/bloc/state.dart';
 import 'package:office_staff_management/presentation/utils/custom_button.dart';
 import 'package:office_staff_management/presentation/utils/custom_text_field.dart';
 
+import '../add_office/bloc/bloc.dart';
+import '../add_office/bloc/event.dart';
+import '../add_office/bloc/state.dart';
 import 'base_assets.dart';
 import 'base_colors.dart';
 import 'base_strings.dart';
@@ -115,7 +115,7 @@ class CustomDialogState extends State<CustomDialog> {
       Function(int, String, String) onTap, int? staffAvatarIndex) {
     return BlocProvider(
       create: (officeContext) => AddOfficeBloc(),
-      child: BlocBuilder<AddOfficeBloc, AddOfficeState>(
+      child: BlocBuilder<AddOfficeBloc, AddStaffState>(
         builder: (context, state) {
           return Column(
             mainAxisSize: MainAxisSize.max,
@@ -150,7 +150,7 @@ class CustomDialogState extends State<CustomDialog> {
                           if (currentAvtarIndex != index) {
                             context
                                 .read<AddOfficeBloc>()
-                                .add(ColorChooseEvent(state.selectedIndex, index));
+                                .add(ChooserEvent(state.selectedColorIndex, index));
                             currentAvtarIndex = index;
                           }
                         });

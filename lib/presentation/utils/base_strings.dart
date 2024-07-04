@@ -3,9 +3,6 @@ class BaseStrings {
   static const String officeBox = 'OfficeBox';
   static const String staffBox = 'StaffBox';
   static const String interFontFamily = 'Inter';
-  static const String interSemiBoldFontFamily = 'InterSemiBold';
-  static const String interExtraBoldFontFamily = 'InterExtraBold';
-  static const String interBoldFontFamily = 'InterBold';
   static const String newOfficeText = 'New Office';
   static const String allOfficesText = 'All Offices';
   static const String specnoText = 'Specno';

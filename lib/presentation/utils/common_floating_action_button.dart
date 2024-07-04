@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'base_colors.dart';
 
 Widget floatingActionButton(BuildContext context, Function() onPressed) {
@@ -6,6 +7,6 @@ Widget floatingActionButton(BuildContext context, Function() onPressed) {
     backgroundColor: BaseColors.iconColor,
     shape: const CircleBorder(),
     onPressed: onPressed,
-    child: const Icon(Icons.add, color: Colors.white),
+    child: const Icon(Icons.add, color: Colors.white)
   );
 }
